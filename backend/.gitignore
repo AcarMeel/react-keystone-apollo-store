@@ -123,3 +123,4 @@ sites/*/private
 .DS_Store
 
 package-lock.json
+.keystone
