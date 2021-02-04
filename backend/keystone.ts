@@ -1,3 +1,4 @@
+import { ProductImage } from './schemas/ProductImage';
 import 'dotenv/config';
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { createAuth } from '@keystone-next/auth'
@@ -36,7 +37,8 @@ export default withAuth(config({
     },
     lists: createSchema({
         User,
-        Product
+        Product,
+        ProductImage
     }),
     ui: {
         isAccessAllowed: ({ session }) => {

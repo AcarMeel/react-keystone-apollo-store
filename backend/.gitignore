@@ -124,3 +124,4 @@ sites/*/private
 
 package-lock.json
 .keystone
+.env
