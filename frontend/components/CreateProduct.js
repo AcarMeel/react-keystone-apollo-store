@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import DisplayError from "./ErrorMessage";
 import { ALL_PRODUCTS_QUERY } from './Products';
+import Router from 'next/router';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -52,8 +53,10 @@ export default function CreateProduct() {
       onSubmit={async (e) => {
         e.preventDefault();
         const res = await createProduct();
-        console.log(res)
         clearForm();
+        Router.push({
+            pathname: `/product/${res.data.createProduct.id}`
+        })
       }}
     >
       <DisplayError error={error} />
