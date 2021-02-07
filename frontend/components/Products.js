@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import Product from "./Product";
 import { ALL_PRODUCTS_QUERY } from '../graphql-queries/queries/allProducts';
-
+import { perPage } from '../config'
 
 const ProductsListStyles = styled.div`
   display: grid;
@@ -11,7 +11,12 @@ const ProductsListStyles = styled.div`
 `;
 
 export default function Products({ page }) {
-  const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
+  const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY, {
+    variables: {
+      skip: page * perPage - perPage,
+      first: perPage
+    }
+  });
 
   return (
     <ProductsListStyles>

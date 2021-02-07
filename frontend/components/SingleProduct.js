@@ -1,23 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import DisplayError from "./ErrorMessage";
 import Head from 'next/head'
 import styled from "styled-components";
+import { SINGLE_PRODUCT_QUERY } from '../graphql-queries/queries/singleProduct'
 
-const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($id: ID!) {
-    Product(where: { id: $id }) {
-      name
-      description
-      price
-      id
-      photo {
-        image {
-          publicUrlTransformed
-        }
-      }
-    }
-  }
-`;
 
 const ProductStyles = styled.div`
     display: grid;
@@ -35,7 +21,7 @@ const ProductStyles = styled.div`
 `;
 
 export default function SingleProduct({ id }) {
-  const { data, loading, error } = useQuery(SINGLE_ITEM_QUERY, {
+  const { data, loading, error } = useQuery(SINGLE_PRODUCT_QUERY, {
     variables: { id },
   });
   if (loading) return <p>Loading...</p>;
