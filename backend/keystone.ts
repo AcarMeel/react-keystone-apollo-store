@@ -47,7 +47,6 @@ export default withAuth(config({
     }),
     ui: {
         isAccessAllowed: ({ session }) => {
-            console.log(session)
             return session?.data
         }
     },

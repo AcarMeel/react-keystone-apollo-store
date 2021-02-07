@@ -1,44 +1,11 @@
-import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
 import DisplayError from "./ErrorMessage";
 import useForm from "../lib/useForm";
 import Form from "./styles/Form";
 import Router from "next/router";
+import { SINGLE_PRODUCT_QUERY } from '../graphql-queries/queries/singleProduct'
+import { UPDATE_PRODUCT_MUTATION  } from '../graphql-queries/mutations/updateProduct'
 
-const SINGLE_PRODUCT_QUERY = gql`
-  query SINGLE_PRODUCT_QUERY($id: ID!) {
-    Product(where: { id: $id }) {
-      name
-      description
-      price
-      id
-      photo {
-        image {
-          publicUrlTransformed
-        }
-      }
-    }
-  }
-`;
-
-const UPDATE_PRODUCT_MUTATION = gql`
-  mutation UPDATE_PRODUCT_MUTATION(
-    $id: ID!
-    $name: String
-    $description: String
-    $price: Int
-  ) {
-    updateProduct(
-      id: $id
-      data: { name: $name, description: $description, price: $price }
-    ) {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
 
 export default function UpdateProduct({ id }) {
   // Get Single Product
@@ -60,7 +27,6 @@ export default function UpdateProduct({ id }) {
   if (loading) return <p>Loading Product Information...</p>;
   if (error) return <DisplayError error={error} />;
   if (data?.Product) {
-    console.log(inputs);
     return (
       <Form
         onSubmit={async (e) => {
